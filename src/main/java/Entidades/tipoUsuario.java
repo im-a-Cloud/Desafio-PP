@@ -1,6 +1,6 @@
 package Entidades;
 
-public enum tipoUsuario {
+public enum TipoUsuario {
     PADRAO,
     LOJISTA
 }

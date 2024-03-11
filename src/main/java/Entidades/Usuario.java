@@ -15,7 +15,7 @@ public class Usuario {
     private String senhaUsuario;
     private double dinheiroUsuario;
     @Enumerated(EnumType.STRING)
-    private UserType tipoUsuario;
+    private TipoUsuario tipoUsuario;
 
     public String getNomeCompleto() {
         return nomeCompleto;
@@ -57,4 +57,11 @@ public class Usuario {
         this.dinheiroUsuario = dinheiroUsuario;
     }
 
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
 }
