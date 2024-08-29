@@ -1,10 +1,8 @@
 package com.DesafioPP.Domain;
 
+import com.DesafioPP.DTOS.UsuarioDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 @Entity
@@ -12,6 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of="id")
 public class UsuarioClasse {
     @Id
@@ -29,4 +28,13 @@ public class UsuarioClasse {
     private BigDecimal saldoConta;
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
+
+    public UsuarioClasse(UsuarioDTO usuarioDTO){
+        this.nomeCompleto = usuarioDTO.nomeCompleto();
+        this.documentoUsuario = usuarioDTO.documentoUsuario();
+        this.emailUsuario = usuarioDTO.emailUsuario();
+        this.senhaUsuario = usuarioDTO.senhaUsuario();
+        this.saldoConta = usuarioDTO.saldoUsuario();
+        this.tipoUsuario = usuarioDTO.tipoUsuario();
+    }
 }
