@@ -25,7 +25,7 @@ public class UsuarioClasse {
 
     private String senhaUsuario;
 
-    private BigDecimal saldoConta;
+    private BigDecimal saldoUsuario;
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
@@ -34,7 +34,7 @@ public class UsuarioClasse {
         this.documentoUsuario = usuarioDTO.documentoUsuario();
         this.emailUsuario = usuarioDTO.emailUsuario();
         this.senhaUsuario = usuarioDTO.senhaUsuario();
-        this.saldoConta = usuarioDTO.saldoUsuario();
+        this.saldoUsuario = usuarioDTO.saldoUsuario();
         this.tipoUsuario = usuarioDTO.tipoUsuario();
     }
 }

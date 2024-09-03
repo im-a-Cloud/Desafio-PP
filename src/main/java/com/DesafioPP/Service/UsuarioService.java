@@ -21,7 +21,7 @@ public class UsuarioService {
     }
     public void validarTransacao(UsuarioClasse usuarioRemetente, BigDecimal valorTransacao) throws Exception {
         if(usuarioRemetente.getTipoUsuario() == TipoUsuario.PADRAO){
-            if(usuarioRemetente.getSaldoConta().compareTo(valorTransacao) < 0){
+            if(usuarioRemetente.getSaldoUsuario().compareTo(valorTransacao) < 0){
                 throw new Exception("Saldo insuficiente na conta");
             }
         }
@@ -40,7 +40,7 @@ public class UsuarioService {
     public UsuarioClasse criarNovoUsuario(UsuarioDTO novoUsuario){
         UsuarioClasse usuarioClasse = new UsuarioClasse(novoUsuario);
         this.salvarModificacoesUsuario(usuarioClasse);
-        return  usuarioClasse;
+        return usuarioClasse;
     }
     public List<UsuarioClasse> retornaTodosUsuarios(){
         return this.usuarioRepository.findAll();

@@ -27,7 +27,10 @@ public class TransacaoService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void realizarTransacao(TransacaoDTO novaTransacao) throws Exception {
+    @Autowired
+    private NotificationService notificacaoService;
+
+    public TransacaoClasse realizarTransacao(TransacaoDTO novaTransacao) throws Exception {
         UsuarioClasse remetente = this.usuarioService.acharUsuarioPeloId(novaTransacao.idRemetente());
         UsuarioClasse destinatario = this.usuarioService.acharUsuarioPeloId(novaTransacao.idDestinatario());
 
@@ -42,13 +45,18 @@ public class TransacaoService {
             transacaoNova.setValorTransferencia(novaTransacao.valorTransferencia()); // Corrigido aqui
             transacaoNova.setTempoTransacao(LocalDateTime.now());
 
-            remetente.setSaldoConta(remetente.getSaldoConta().subtract(novaTransacao.valorTransferencia()));
-            destinatario.setSaldoConta(destinatario.getSaldoConta().add(novaTransacao.valorTransferencia()));
+            remetente.setSaldoUsuario(remetente.getSaldoUsuario().subtract(novaTransacao.valorTransferencia()));
+            destinatario.setSaldoUsuario(destinatario.getSaldoUsuario().add(novaTransacao.valorTransferencia()));
 
             // Salvar a transação no repositório
             this.transacaoRepository.save(transacaoNova);
             this.usuarioService.salvarModificacoesUsuario(remetente);
             this.usuarioService.salvarModificacoesUsuario(destinatario);
+
+            this.notificacaoService.enviarNotificacao(remetente,"Transação feita");
+            this.notificacaoService.enviarNotificacao(destinatario,"Transação recebida");
+
+            return transacaoNova;
 
         }
     }
